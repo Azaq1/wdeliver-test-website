@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>WDeliver | Transport &amp; bezorging door heel Nederland</title>
+  <meta name="description" content="WDeliver is uw partner in transport en bezorging van consumentenleveringen door heel Nederland. Opgericht in 2010 in Deventer, met eigen wagenpark en getraind personeel. Vraag vrijblijvend een offerte aan.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red: #DD0419;
+      --red-dark: #B00313;
+      --bg: #0F1115;
+      --bg-raise: #161920;
+      --ink: #F2F4F7;
+      --muted: #9AA3B0;
+      --line: rgba(255, 255, 255, 0.09);
+      --soft: rgba(255, 255, 255, 0.03);
+      --footer-bg: #0B0D10;
+      --footer-text: #97A0AC;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { background: var(--bg); }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: var(--ink);
+      background: transparent;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Dynamische achtergrond: speed-lines (logo-swoosh) + zachte rode gloed die als geheel vloeiend meedrijft */
+    body::before {
+      content: "";
+      position: fixed;
+      /* Iets groter dan het scherm, zodat de zachte drift nooit een rand toont */
+      inset: -8%;
+      z-index: -1;
+      background:
+        radial-gradient(1000px 1000px at 80% 12%, rgba(221, 4, 25, 0.14), transparent 60%),
+        radial-gradient(880px 880px at 8% 86%, rgba(221, 4, 25, 0.10), transparent 60%),
+        repeating-linear-gradient(115deg,
+          transparent 0, transparent 46px,
+          rgba(255, 255, 255, 0.022) 46px, rgba(255, 255, 255, 0.022) 48px),
+        repeating-linear-gradient(115deg,
+          transparent 0, transparent 230px,
+          rgba(221, 4, 25, 0.05) 230px, rgba(221, 4, 25, 0.05) 233px);
+      /* Gloed niet tegelen; de line-gradients vullen vanzelf naadloos het hele vlak */
+      background-repeat: no-repeat;
+      will-change: transform;
+      /* De hele textuur drijft als geheel -> vloeiend, geen bewegend blok */
+      animation: bgDrift 80s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    @keyframes bgDrift {
+      from { transform: translate3d(0, 0, 0); }
+      to   { transform: translate3d(2.6%, 1.8%, 0); }
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      background: var(--red);
+      color: #FFFFFF;
+      font-weight: 600;
+      font-size: 16px;
+      padding: 14px 30px;
+      border-radius: 8px;
+      border: 2px solid var(--red);
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+    .btn:hover { background: var(--red-dark); border-color: var(--red-dark); transform: translateY(-2px); box-shadow: 0 12px 26px rgba(221, 4, 25, 0.35); }
+
+    .btn-outline {
+      display: inline-block;
+      background: transparent;
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 16px;
+      padding: 14px 30px;
+      border-radius: 8px;
+      border: 2px solid rgba(255, 255, 255, 0.18);
+      transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+    .btn-outline:hover { border-color: var(--red); color: #FFFFFF; transform: translateY(-2px); }
+
+    .btn-white {
+      display: inline-block;
+      background: #FFFFFF;
+      color: var(--red);
+      font-weight: 700;
+      font-size: 16px;
+      padding: 14px 30px;
+      border-radius: 8px;
+      border: 2px solid #FFFFFF;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35); }
+
+    .btn .arrow, .btn-white .arrow {
+      display: inline-block;
+      margin-left: 8px;
+      transition: transform 0.25s ease;
+    }
+    .btn:hover .arrow, .btn-white:hover .arrow { transform: translateX(5px); }
+
+    /* Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(15, 17, 21, 0.88);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+      transform: translateY(0);
+      transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+    }
+    /* Dunne rode "speed line" bovenaan, verwijzing naar de logo-swoosh */
+    .site-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--red) 35%, #FF7A66 50%, var(--red) 65%, transparent);
+      opacity: 0.85;
+    }
+    /* Verdwijnt bij scrollen omlaag, komt terug bij scrollen omhoog */
+    .site-header.header-hide { transform: translateY(-100%); }
+    .site-header.header-scrolled {
+      background: rgba(11, 13, 16, 0.96);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding-top: 14px;
+      padding-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: inline-block;
+      background: #FFFFFF;
+      border-radius: 10px;
+      padding: 7px 12px;
+      box-shadow: 0 0 0 1px rgba(221, 4, 25, 0.22), 0 10px 22px rgba(0, 0, 0, 0.35);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .brand:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 0 1px rgba(221, 4, 25, 0.4), 0 16px 30px rgba(0, 0, 0, 0.45);
+    }
+    .brand img { height: 34px; width: auto; }
+    .main-nav ul {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .main-nav a {
+      font-weight: 500;
+      font-size: 15px;
+      color: var(--ink);
+      padding: 6px 0;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .main-nav a:hover { color: #FF4D5E; }
+    .main-nav a.active { color: #FF4D5E; border-bottom-color: var(--red); }
+    .main-nav a.btn-nav {
+      background: var(--red);
+      color: #FFFFFF;
+      font-weight: 600;
+      padding: 11px 22px;
+      border-radius: 8px;
+      border-bottom: none;
+      transition: background 0.2s ease;
+    }
+    .main-nav a.btn-nav:hover { background: var(--red-dark); color: #FFFFFF; }
+    /* Mobiel: hamburger-knop die de navigatie als dropdown opent */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 42px;
+      height: 38px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.04);
+      cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      flex-shrink: 0;
+    }
+    .nav-toggle:hover { border-color: var(--red); }
+    .nav-toggle-bar {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: #FFFFFF;
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .site-header.nav-open .nav-toggle-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .site-header.nav-open .nav-toggle-bar:nth-child(2) { opacity: 0; }
+    .site-header.nav-open .nav-toggle-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Sections */
+    section { padding: 88px 0; }
+    .section-soft { background: var(--soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .section-title {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 18px;
+      color: #FFFFFF;
+    }
+    .section-title .t-short { display: none; }
+    .section-intro { color: var(--muted); font-size: 18px; max-width: 640px; }
+    .center { text-align: center; }
+    .center .section-intro { margin-left: auto; margin-right: auto; }
+
+    /* Entrance-animaties (hero, puur CSS) */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(26px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeScale {
+      from { opacity: 0; transform: scale(0.96); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+
+    /* Scroll-reveal (JS voegt .in toe; zonder JS blijft alles gewoon zichtbaar) */
+    .js .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .js .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* Hero */
+    .hero {
+      padding: 96px 0 104px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -220px;
+      right: -220px;
+      width: 560px;
+      height: 560px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(221, 4, 25, 0.16) 0%, rgba(221, 4, 25, 0) 68%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      grid-template-areas:
+        "text visual"
+        "lead visual"
+        "cta  visual";
+      column-gap: 72px;
+      align-content: center;
+      position: relative;
+    }
+    .hero-grid > * { min-width: 0; }
+    .hero-text { grid-area: text; }
+    .hero-lead { grid-area: lead; align-self: start; }
+    .hero-cta { grid-area: cta; align-self: start; }
+    .hero-visual { grid-area: visual; align-self: center; }
+    .hero h1 {
+      font-size: clamp(34px, 5vw, 54px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 22px;
+      color: #FFFFFF;
+    }
+    .hero h1 em { font-style: normal; color: #FF3B4E; }
+    .hero h1 .t-short { display: none; }
+    .hero p.lead { color: var(--muted); font-size: 19px; margin-bottom: 32px; max-width: 520px; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 32px; }
+    .hero-text h1         { animation: fadeUp 0.7s ease 0.15s both; }
+    .hero-lead            { animation: fadeUp 0.7s ease 0.3s both; }
+    .hero-cta .hero-actions { animation: fadeUp 0.7s ease 0.45s both; }
+    .check {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--red);
+      color: #FFFFFF;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* Hero fotocollage */
+    .hero-visual { position: relative; animation: fadeScale 0.9s ease 0.25s both; }
+    .hero-visual .photo-main {
+      width: 100%;
+      border-radius: 18px;
+      object-fit: cover;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55);
+    }
+    .hero-visual .photo-sub {
+      position: absolute;
+      left: -56px;
+      bottom: -44px;
+      width: 46%;
+      border-radius: 14px;
+      border: 6px solid #FFFFFF;
+      box-shadow: 0 22px 48px rgba(0, 0, 0, 0.6);
+      object-fit: cover;
+    }
+    .hero-badge {
+      position: absolute;
+      top: -26px;
+      right: -18px;
+      background: var(--red);
+      color: #FFFFFF;
+      border-radius: 14px;
+      padding: 16px 22px;
+      text-align: center;
+      box-shadow: 0 16px 36px rgba(221, 4, 25, 0.45);
+      animation: floaty 4.5s ease-in-out 1.2s infinite;
+    }
+    .hero-badge strong { display: block; font-size: 24px; font-weight: 800; line-height: 1.1; }
+    .hero-badge span { font-size: 12.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.92; }
+
+    /* Partners-marquee */
+    .partners-strip { padding: 44px 0 48px; background: #030407; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .partners-label {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 30px;
+    }
+    .partners-label em { font-style: normal; color: #FF4D5E; }
+    .marquee {
+      overflow: hidden;
+      position: relative;
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+      mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 40s linear infinite;
+    }
+    .marquee:hover .marquee-track { animation-play-state: paused; }
+    .marquee-set {
+      display: flex;
+      align-items: center;
+      gap: 84px;
+      padding-right: 84px;
+    }
+    .marquee-set img {
+      max-height: 48px;
+      width: auto;
+      /* Donkere/witte logo-bestanden worden licht gemaakt; de geïnverteerde witte
+         achtergronden vallen weg tegen de near-black strip */
+      filter: invert(1) grayscale(1) brightness(1.3);
+      opacity: 0.65;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .marquee-set img:hover { opacity: 1; transform: scale(1.08); }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* Split / intro */
+    .split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .split-grid > * { min-width: 0; }
+    .split-content p { color: var(--muted); margin-bottom: 16px; }
+    .split-image img {
+      width: 100%;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 26px 52px rgba(0, 0, 0, 0.5);
+    }
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 32px;
+    }
+    .stats-row > * { min-width: 0; }
+    .stat { border-left: 3px solid var(--red); padding-left: 16px; }
+    .stat strong { display: block; font-size: 30px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: #FFFFFF; }
+    .stat strong span { font-size: inherit; color: inherit; }
+    .stat > span { color: var(--muted); font-size: 14px; }
+
+    /* Diensten cards */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 48px;
+    }
+    .cards-grid > * { min-width: 0; }
+    .card {
+      background: var(--bg-raise);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 22px 48px rgba(0, 0, 0, 0.5); }
+    .card-img { overflow: hidden; }
+    .card-img img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .card:hover .card-img img { transform: scale(1.07); }
+    .card-body { padding: 26px 26px 30px; display: flex; flex-direction: column; flex-grow: 1; }
+    .card-body h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #FFFFFF; }
+    .card-body p { color: var(--muted); font-size: 15.5px; margin-bottom: 20px; flex-grow: 1; }
+    .card-link { color: #FF4D5E; font-weight: 600; font-size: 15px; transition: color 0.2s ease; }
+    .card-link .arrow { display: inline-block; margin-left: 6px; transition: transform 0.25s ease; }
+    .card:hover .card-link .arrow { transform: translateX(5px); }
+    .card-link:hover { color: #FF6B7A; }
+
+    /* Parallax fotoband */
+    .photo-band {
+      position: relative;
+      padding: 130px 0;
+      background-image: linear-gradient(rgba(10, 11, 14, 0.78), rgba(10, 11, 14, 0.78)), url("media/chauffeurs-onderweg.jpg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #FFFFFF;
+      text-align: center;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .photo-band h2 {
+      font-size: clamp(26px, 3.8vw, 40px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      max-width: 760px;
+      margin: 0 auto 18px;
+    }
+    .photo-band p { font-size: 18px; opacity: 0.85; max-width: 600px; margin: 0 auto 32px; }
+
+    /* USP's */
+    .usp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 48px;
+    }
+    .usp-grid > * { min-width: 0; }
+    .usp {
+      background: var(--bg-raise);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 28px;
+      text-align: left;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+    .usp:hover { transform: translateY(-5px); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45); border-color: rgba(221, 4, 25, 0.45); }
+    .usp .check { width: 32px; height: 32px; font-size: 15px; margin-bottom: 16px; transition: transform 0.25s ease; }
+    .usp:hover .check { transform: scale(1.12) rotate(8deg); }
+    .usp h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; color: #FFFFFF; }
+    .usp p { color: var(--muted); font-size: 15px; }
+
+    /* CTA band */
+    .cta-band {
+      background: linear-gradient(118deg, var(--red) 0%, #C00315 58%, #9E0212 100%);
+      color: #FFFFFF;
+      padding: 84px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-band::before {
+      content: "";
+      position: absolute;
+      top: -140px;
+      right: -100px;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.07);
+      pointer-events: none;
+    }
+    .cta-band h2 { font-size: clamp(26px, 3.5vw, 36px); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .photo-band h2 .t-short, .cta-band h2 .t-short { display: none; }
+    .cta-band p { font-size: 18px; opacity: 0.92; margin-bottom: 28px; max-width: 560px; margin-left: auto; margin-right: auto; }
+
+    /* Footer */
+    .site-footer { background: var(--footer-bg); color: var(--footer-text); padding: 72px 0 0; font-size: 15px; border-top: 1px solid var(--line); }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr 0.8fr 1.2fr;
+      gap: 48px;
+      padding-bottom: 56px;
+    }
+    .footer-logo {
+      display: inline-block;
+      background: #FFFFFF;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 18px;
+    }
+    .footer-logo img { height: 34px; width: auto; }
+    .site-footer h3 { color: #FFFFFF; font-size: 15px; font-weight: 700; margin-bottom: 16px; }
+    .site-footer li { margin-bottom: 10px; }
+    .site-footer a:hover { color: #FFFFFF; }
+    .site-footer address { font-style: normal; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 22px 0;
+      font-size: 13.5px;
+    }
+    .footer-bottom .container { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .footer-bottom a { text-decoration: underline; }
+
+    /* Responsive */
+    @media (max-width: 920px) {
+      section { padding: 64px 0; }
+      .nav-toggle { display: inline-flex; }
+      .main-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(11, 13, 16, 0.98);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(-8px);
+        transition: max-height 0.35s ease, opacity 0.25s ease, transform 0.25s ease;
+        pointer-events: none;
+      }
+      .site-header.nav-open .main-nav {
+        max-height: 420px;
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+      .main-nav ul {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2px;
+        padding: 14px 24px 22px;
+      }
+      .main-nav a { padding: 12px 2px; border-bottom: 1px solid var(--line); width: 100%; }
+      .main-nav a.btn-nav { margin-top: 12px; text-align: center; border-bottom: none; }
+      .main-nav ul li:last-child { display: none; }
+      .hero { padding: 56px 0 88px; }
+      .split-grid { grid-template-columns: 1fr; gap: 48px; }
+      .split-content { text-align: center; }
+      /* Mobiel: eerst de titel, dan de foto's, daarna de subtekst en de knoppen (met de partner-strip er direct onder) */
+      .hero-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "text"
+          "visual"
+          "lead"
+          "cta";
+        row-gap: 40px;
+      }
+      .hero-text h1 { margin-bottom: 0; }
+      .hero-lead { margin-bottom: 0; max-width: none; }
+      /* Tekst en knoppen gecentreerd op mobiel; titel iets groter voor meer beeldvullend effect */
+      .hero-text, .hero-lead { text-align: center; }
+      .hero-text h1 { font-size: clamp(34px, 9vw, 46px); }
+      .hero-actions { justify-content: center; }
+      .hero-visual { margin-left: 40px; margin-bottom: 26px; }
+      .hero-visual .photo-sub { left: -40px; bottom: -32px; }
+      /* Kortere koppen op mobiel */
+      .hero h1 .t-long { display: none; }
+      .hero h1 .t-short { display: inline; }
+      .section-title .t-long,
+      .photo-band h2 .t-long, .cta-band h2 .t-long { display: none; }
+      .section-title .t-short,
+      .photo-band h2 .t-short, .cta-band h2 .t-short { display: inline; }
+      .cards-grid, .usp-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .photo-band { background-attachment: scroll; }
+    }
+    @media (max-width: 620px) {
+      .cards-grid, .usp-grid, .stats-row, .footer-grid { grid-template-columns: 1fr; }
+      /* Compacter en gecentreerd op mobiel */
+      section { padding: 48px 0; }
+      .section-title { margin-bottom: 12px; }
+      .section-intro { font-size: 16px; }
+      .hero p.lead { font-size: 17px; }
+      .card, .usp { text-align: center; }
+      .card-body { padding: 20px 20px 24px; }
+      .usp { padding: 22px; }
+      .cards-grid, .usp-grid { gap: 18px; }
+      .stats-row { gap: 14px; }
+      .stat { text-align: center; }
+      .photo-band { padding: 64px 0; }
+      .cta-band { padding: 56px 0; }
+      .site-footer { padding-top: 48px; }
+      .hero-visual { margin-left: 28px; }
+      .hero-visual .photo-sub { left: -28px; width: 52%; }
+      .hero-badge { top: -20px; right: -8px; padding: 12px 16px; }
+      .hero-badge strong { font-size: 19px; }
+      .marquee-set { gap: 48px; padding-right: 48px; }
+      .marquee-set img { max-height: 38px; }
+    }
+
+    /* Minder beweging voor wie dat wil */
+    @media (prefers-reduced-motion: reduce) {
+      body::before { animation: none; }
+      .hero-text h1, .hero-lead,
+      .hero-cta .hero-actions,
+      .hero-visual, .hero-badge, .marquee-track { animation: none; }
+      .js .reveal { opacity: 1; transform: none; transition: none; }
+      .photo-band { background-attachment: scroll; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <img src="media/logo-wdeliver.jpg" alt="WDeliver logo – Snel en Betrouwbaar" width="173" height="40">
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Menu openen">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="main-nav" id="main-nav" aria-label="Hoofdnavigatie">
+        <ul>
+          <li><a href="index.html" class="active" aria-current="page">Home</a></li>
+          <li><a href="wdeliver.html">WDeliver</a></li>
+          <li><a href="w-install.html">W-Install</a></li>
+          <li><a href="werken-bij.html">Werken bij</a></li>
+          <li><a href="contact.html" class="btn-nav">Neem contact op</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero-sectie: mobiel gecentreerd, titel/foto's/subtekst/knoppen -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <h1><span class="t-long">Uw partner in <em>transport en bezorging</em> door heel Nederland</span><span class="t-short">Uw partner in <em>transport en bezorging</em></span></h1>
+        </div>
+        <div class="hero-visual">
+          <img class="photo-main" src="media/team-wagenpark.jpg" alt="Drie WDeliver-medewerkers in bedrijfskleding voor een bakwagen van het eigen wagenpark" width="2048" height="1152">
+          <img class="photo-sub" src="media/bezorging-witgoed.jpg" alt="WDeliver-bezorger vervoert een witgoedapparaat met een trapsteekwagen naast een bakwagen" width="2048" height="1152">
+          <p class="hero-badge"><strong>2010</strong><span>opgericht in Deventer</span></p>
+        </div>
+        <p class="hero-lead lead">WDeliver vervoert en bezorgt consumentenleveringen door heel Nederland, snel, betrouwbaar en met oog voor uw klant. Van bezorging tot en met volledige installatie.</p>
+        <div class="hero-cta">
+          <div class="hero-actions">
+            <a href="contact.html" class="btn">Offerte aanvragen <span class="arrow">→</span></a>
+            <a href="#diensten" class="btn-outline">Bekijk onze diensten</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Partners: doorlopende logo-carrousel -->
+    <section class="partners-strip" aria-label="Partners van WDeliver">
+      <div class="container">
+        <p class="partners-label">Zij vertrouwen dagelijks op <em>WDeliver</em></p>
+      </div>
+      <div class="marquee">
+        <div class="marquee-track">
+          <div class="marquee-set">
+            <img src="media/partner-sluyter.png" alt="Logo van partner Sluyter Logistics" width="980" height="255">
+            <img src="media/partner-naduvi.jpg" alt="Logo van partner Naduvi" width="600" height="400">
+            <img src="media/partner-mailstreet.png" alt="Logo van partner Mailstreet" width="325" height="140">
+            <img src="media/partner-first-logistics.jpg" alt="Logo van partner First Logistics" width="165" height="63">
+            <img src="media/partner-wuunder.png" alt="Logo van partner Wuunder" width="56" height="70">
+          </div>
+          <div class="marquee-set" aria-hidden="true">
+            <img src="media/partner-sluyter.png" alt="" width="980" height="255">
+            <img src="media/partner-naduvi.jpg" alt="" width="600" height="400">
+            <img src="media/partner-mailstreet.png" alt="" width="325" height="140">
+            <img src="media/partner-first-logistics.jpg" alt="" width="165" height="63">
+            <img src="media/partner-wuunder.png" alt="" width="56" height="70">
+          </div>
+          <div class="marquee-set" aria-hidden="true">
+            <img src="media/partner-sluyter.png" alt="" width="980" height="255">
+            <img src="media/partner-naduvi.jpg" alt="" width="600" height="400">
+            <img src="media/partner-mailstreet.png" alt="" width="325" height="140">
+            <img src="media/partner-first-logistics.jpg" alt="" width="165" height="63">
+            <img src="media/partner-wuunder.png" alt="" width="56" height="70">
+          </div>
+          <div class="marquee-set" aria-hidden="true">
+            <img src="media/partner-sluyter.png" alt="" width="980" height="255">
+            <img src="media/partner-naduvi.jpg" alt="" width="600" height="400">
+            <img src="media/partner-mailstreet.png" alt="" width="325" height="140">
+            <img src="media/partner-first-logistics.jpg" alt="" width="165" height="63">
+            <img src="media/partner-wuunder.png" alt="" width="56" height="70">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Intro -->
+    <section class="section-soft">
+      <div class="container split-grid">
+        <div class="split-image reveal">
+          <img src="media/pand-deventer.jpg" alt="WDeliver-medewerker voor het pand aan de Harderwijkerstraat in Deventer met de logo's van WDeliver en W-Install" width="2048" height="1152">
+        </div>
+        <div class="split-content reveal">
+          <h2 class="section-title">Meer dan alleen bezorgen</h2>
+          <p>WDeliver is een transport- en bezorgbedrijf uit Deventer, gespecialiseerd in het vervoeren en bezorgen van consumentenleveringen door heel Nederland. Wij rijden met transportbussen, bakwagens én vrachtwagens, en schakelen snel wanneer uw planning daarom vraagt.</p>
+          <div class="stats-row">
+            <div class="stat"><strong>2010</strong><span>opgericht in Deventer</span></div>
+            <div class="stat"><strong><span data-count="9">9</span></strong><span>bakwagens sinds de groei</span></div>
+            <div class="stat"><strong><span data-count="700">700</span> m²</strong><span>kantoor en loods</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Diensten -->
+    <section id="diensten">
+      <div class="container center">
+        <h2 class="section-title reveal"><span class="t-long">Van transport tot volledige installatie</span><span class="t-short">Van transport tot installatie</span></h2>
+        <p class="section-intro reveal">Eén betrouwbare partner voor de hele keten: bezorgen, plaatsen, aansluiten en installeren bij uw klant thuis.</p>
+        <div class="cards-grid">
+          <article class="card reveal">
+            <div class="card-img">
+              <img src="media/bezorging-witgoed.jpg" alt="WDeliver-bezorger vervoert een witgoedapparaat met een trapsteekwagen naast een bakwagen" width="2048" height="1152">
+            </div>
+            <div class="card-body">
+              <h3>Transport &amp; bezorging</h3>
+              <p>Consumentenleveringen door heel Nederland, bezorgd met onze eigen transportbussen, bakwagens en vrachtwagens. Snel en betrouwbaar.</p>
+              <a href="wdeliver.html" class="card-link">Meer over WDeliver <span class="arrow">→</span></a>
+            </div>
+          </article>
+          <article class="card reveal">
+            <div class="card-img">
+              <img src="media/team-wagenpark.jpg" alt="WDeliver-bezorgteam klaar voor vertrek voor een bakwagen" width="2048" height="1152">
+            </div>
+            <div class="card-body">
+              <h3>Uitpakken, plaatsen &amp; aansluiten</h3>
+              <p>Meer service voor uw klant: wij pakken de levering uit, plaatsen het product op de juiste plek en sluiten het direct aan.</p>
+              <a href="wdeliver.html" class="card-link">Meer over onze service <span class="arrow">→</span></a>
+            </div>
+          </article>
+          <article class="card reveal">
+            <div class="card-img">
+              <img src="media/installatie-witgoed.jpg" alt="W-Install-installateur draagt een ingepakt LG-apparaat voor installatie bij de klant" width="2048" height="1152">
+            </div>
+            <div class="card-body">
+              <h3>Installatie met W-Install</h3>
+              <p>Onze installatieservice hangt op, installeert en sluit aan: consumentenelektronica, witgoed en bruingoed. Altijd met twee installateurs per bus.</p>
+              <a href="w-install.html" class="card-link">Meer over W-Install <span class="arrow">→</span></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Parallax fotoband -->
+    <section class="photo-band">
+      <div class="container">
+        <h2 class="reveal"><span class="t-long">Elke chauffeur is het visitekaartje van uw organisatie, en van de onze.</span><span class="t-short">Elke chauffeur is uw visitekaartje.</span></h2>
+        <p class="reveal">Zorgvuldig geselecteerd, getraind en geschoold, en altijd met een VOG. Zo weet u zeker dat uw klant aan de deur dezelfde service ervaart als bij u.</p>
+        <a href="wdeliver.html" class="btn-white reveal">Ontdek onze aanpak <span class="arrow">→</span></a>
+      </div>
+    </section>
+
+    <!-- Waarom WDeliver -->
+    <section class="section-soft">
+      <div class="container center">
+        <h2 class="section-title reveal"><span class="t-long">Waar opdrachtgevers op ons rekenen</span><span class="t-short">Waarom WDeliver</span></h2>
+        <p class="section-intro reveal">Sinds 2010 bouwen wij aan langdurige relaties met onze opdrachtgevers. Dit is waarom zij voor WDeliver kiezen.</p>
+        <div class="usp-grid">
+          <article class="usp reveal">
+            <span class="check">✓</span>
+            <h3>Ervaring sinds 2010</h3>
+            <p>Gestart met één bakwagen in Deventer en uitgegroeid tot een volwaardige transportpartner voor heel Nederland.</p>
+          </article>
+          <article class="usp reveal">
+            <span class="check">✓</span>
+            <h3>Heel Nederland</h3>
+            <p>Wij bezorgen consumentenleveringen in het hele land, van de Randstad tot de regio.</p>
+          </article>
+          <article class="usp reveal">
+            <span class="check">✓</span>
+            <h3>Eigen wagenpark</h3>
+            <p>Transportbussen, bakwagens en vrachtwagens: voor elke levering het juiste voertuig.</p>
+          </article>
+          <article class="usp reveal">
+            <span class="check">✓</span>
+            <h3>Getraind personeel met VOG</h3>
+            <p>Onze mensen worden zorgvuldig geselecteerd, getraind en geschoold, en beschikken allemaal over een VOG.</p>
+          </article>
+          <article class="usp reveal">
+            <span class="check">✓</span>
+            <h3>Maatwerk &amp; snel schakelen</h3>
+            <p>Elke opdrachtgever is anders. Wij denken mee en passen onze dienstverlening aan op uw proces.</p>
+          </article>
+          <article class="usp reveal">
+            <span class="check">✓</span>
+            <h3>Chauffeur als visitekaartje</h3>
+            <p>Onze chauffeurs vertegenwoordigen niet alleen WDeliver, maar ook úw merk aan de deur.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA band -->
+    <section class="cta-band">
+      <div class="container center">
+        <h2 class="reveal"><span class="t-long">Klaar om uw bezorging uit handen te geven?</span><span class="t-short">Bezorging uit handen geven?</span></h2>
+        <p class="reveal">Vraag vrijblijvend een offerte aan. Wij denken graag met u mee over de beste oplossing voor uw leveringen.</p>
+        <a href="contact.html" class="btn-white reveal">Offerte aanvragen <span class="arrow">→</span></a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <span class="footer-logo">
+          <img src="media/logo-wdeliver-w-install.png" alt="Logo's van WDeliver en W-Install" width="302" height="59">
+        </span>
+        <p>Uw partner in transport, bezorging en installatie van consumentenleveringen door heel Nederland. Opgericht in 2010 in Deventer.</p>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <address>
+          <ul>
+            <li>Harderwijkerstraat 11<br>7418 BA Deventer</li>
+            <li><a href="tel:+31655175923">06 – 55175923</a></li>
+            <li><a href="mailto:info@wdeliver.nl">info@wdeliver.nl</a></li>
+          </ul>
+        </address>
+      </div>
+      <div>
+        <h3>Navigatie</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="wdeliver.html">WDeliver</a></li>
+          <li><a href="w-install.html">W-Install</a></li>
+          <li><a href="werken-bij.html">Werken bij</a></li>
+          <li><a href="contact.html">Neem contact op</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Bedrijfsgegevens</h3>
+        <ul>
+          <li>Handelsregister Oost Nederland: 85927384</li>
+          <li>BTW: NL863789535B01</li>
+          <li>NIWO Vergunning: 023774</li>
+          <li>Getuigschrift Vakbekwaamheid: 300850</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <span>© 2026 WDeliver · Alle rechten voorbehouden</span>
+        <span>Van toepassing: AVC 2002 / CMR · <a href="#">Algemene Voorwaarden</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Progressive enhancement: zonder JS blijft alles gewoon zichtbaar.
+    document.documentElement.classList.add('js');
+
+    // Scroll-reveal met lichte stagger per sectie
+    var revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      var groups = new Map();
+      revealEls.forEach(function (el) {
+        var section = el.closest('section') || document.body;
+        if (!groups.has(section)) groups.set(section, 0);
+        el.style.transitionDelay = (groups.get(section) * 90) + 'ms';
+        groups.set(section, groups.get(section) + 1);
+      });
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      revealEls.forEach(function (el) { io.observe(el); });
+    } else {
+      revealEls.forEach(function (el) { el.classList.add('in'); });
+    }
+
+    // Tellers in de statistieken lopen op zodra ze in beeld komen
+    var counters = document.querySelectorAll('[data-count]');
+    if ('IntersectionObserver' in window && counters.length) {
+      var cio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var el = entry.target;
+          var target = parseInt(el.getAttribute('data-count'), 10);
+          var start = null;
+          var duration = 1300;
+          function tick(ts) {
+            if (!start) start = ts;
+            var p = Math.min((ts - start) / duration, 1);
+            el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+            if (p < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+          cio.unobserve(el);
+        });
+      }, { threshold: 0.6 });
+      counters.forEach(function (el) { cio.observe(el); });
+    }
+  
+    // Header: verbergen bij scrollen omlaag, weer tonen bij scrollen omhoog
+    (function () {
+      var header = document.querySelector('.site-header');
+      if (!header) return;
+      var lastY = window.scrollY;
+      var ticking = false;
+      function update() {
+        var y = window.scrollY;
+        header.classList.toggle('header-scrolled', y > 40);
+        if (y > lastY && y > 140) {
+          header.classList.add('header-hide');
+        } else {
+          header.classList.remove('header-hide');
+        }
+        lastY = y;
+        ticking = false;
+      }
+      window.addEventListener('scroll', function () {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      }, { passive: true });
+    })();
+
+      // Mobiel: hamburger-menu openen/sluiten
+    (function () {
+      var header = document.querySelector('.site-header');
+      var toggle = document.querySelector('.nav-toggle');
+      var nav = document.querySelector('.main-nav');
+      if (!header || !toggle || !nav) return;
+      function closeMenu() {
+        header.classList.remove('nav-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+      function openMenu() {
+        header.classList.add('nav-open');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
+      toggle.addEventListener('click', function () {
+        if (header.classList.contains('nav-open')) closeMenu(); else openMenu();
+      });
+      document.addEventListener('click', function (e) {
+        if (header.classList.contains('nav-open') && !header.contains(e.target)) closeMenu();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeMenu();
+      });
+      nav.addEventListener('click', function (e) {
+        if (e.target.tagName === 'A') closeMenu();
+      });
+    })();
+  </script>
+
+</body>
+</html>
