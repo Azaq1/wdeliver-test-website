@@ -276,12 +276,12 @@
     }
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.02fr 0.98fr;
+      grid-template-columns: 1.2fr 0.8fr;
       grid-template-areas:
         "text visual"
         "lead visual"
         "cta  visual";
-      column-gap: 72px;
+      column-gap: 64px;
       align-content: center;
       position: relative;
     }
@@ -299,8 +299,7 @@
       color: #FFFFFF;
     }
     .hero h1 em { font-style: normal; color: #FF3B4E; }
-    .hero h1 .t-short { display: none; }
-    .hero p.lead { color: var(--muted); font-size: 19px; margin-bottom: 32px; max-width: 520px; }
+    .hero p.lead { color: var(--muted); font-size: 19px; margin-bottom: 32px; max-width: 580px; }
     .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 32px; }
     .hero-text h1         { animation: fadeUp 0.7s ease 0.15s both; }
     .hero-lead            { animation: fadeUp 0.7s ease 0.3s both; }
@@ -613,8 +612,6 @@
       .hero-visual { margin-left: 40px; margin-bottom: 26px; }
       .hero-visual .photo-sub { left: -40px; bottom: -32px; }
       /* Kortere koppen op mobiel */
-      .hero h1 .t-long { display: none; }
-      .hero h1 .t-short { display: inline; }
       .section-title .t-long,
       .photo-band h2 .t-long, .cta-band h2 .t-long { display: none; }
       .section-title .t-short,
@@ -688,7 +685,7 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-text">
-          <h1><span class="t-long">Uw partner in <em>transport en bezorging</em> door heel Nederland</span><span class="t-short">Uw partner in <em>transport en bezorging</em></span></h1>
+          <h1>Uw partner in <em>transport en bezorging</em></h1>
         </div>
         <div class="hero-visual">
           <img class="photo-main" src="media/team-wagenpark.jpg" alt="Drie WDeliver-medewerkers in bedrijfskleding voor een bakwagen van het eigen wagenpark" width="2048" height="1152">
@@ -752,7 +749,7 @@
         </div>
         <div class="split-content reveal">
           <h2 class="section-title">Meer dan alleen bezorgen</h2>
-          <p>WDeliver is een transport- en bezorgbedrijf uit Deventer, gespecialiseerd in het vervoeren en bezorgen van consumentenleveringen door heel Nederland. Wij rijden met transportbussen, bakwagens én vrachtwagens, en schakelen snel wanneer uw planning daarom vraagt.</p>
+          <p>WDeliver is een transport- en bezorgbedrijf uit Deventer, gespecialiseerd in het vervoeren en bezorgen van consumentenleveringen door heel Nederland.</p>
           <div class="stats-row">
             <div class="stat"><strong>2010</strong><span>opgericht in Deventer</span></div>
             <div class="stat"><strong><span data-count="9">9</span></strong><span>bakwagens sinds de groei</span></div>
